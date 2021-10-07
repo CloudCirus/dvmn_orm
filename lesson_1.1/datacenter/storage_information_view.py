@@ -4,7 +4,6 @@ from django.shortcuts import render
 
 
 def storage_information_view(request):
-
     all_visiters_inside = Visit.objects.filter(leaved_at=None)
 
     def get_duration(visiter):
@@ -34,6 +33,6 @@ def storage_information_view(request):
         )
 
     context = {
-        'non_closed_visits': non_closed_visits,
+        'non_closed_visits': non_closed_visits,  # не закрытые посещения
     }
     return render(request, 'storage_information.html', context)
