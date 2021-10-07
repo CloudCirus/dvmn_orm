@@ -1,4 +1,23 @@
 from django.db import models
+from django.utils.timezone import localtime, timedelta
+
+
+def get_duration(visit):
+    if visit.leaved_at:
+        delta = visit.leaved_at - visit.entered_at
+    else:
+        delta = localtime() - visit.entered_at
+    return timedelta(seconds=delta.seconds)
+
+
+def format_duration(duration: timedelta):
+    duration_string = str(duration)
+    _list_with_time = duration_string.split(':')
+    hours = _list_with_time[-3]
+    minutes = _list_with_time[-2]
+    if duration.days:
+        return f'{duration.days}d {hours}:{minutes}'
+    return f'{hours}:{minutes}'
 
 
 class Passcard(models.Model):
